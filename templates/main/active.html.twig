@@ -1,0 +1,25 @@
+{% extends 'base_with_navbar.html.twig' %}
+
+{% block title %}MMG Calendar- Réactivation
+{% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" type="text/css" href="{{asset('css/calendar.css')}}">
+{% endblock %}
+{% block body %}
+	<div class="container">
+		<div class="col-8 mx-auto bg-div p-5  rounded">
+			<h1 class="text-center text-decoration-underline">Réactivation du compte</h1>
+			<h5 class="text-center">Pour pouvoir réactiver votre compte, cliquez sur le bouton ci-dessous :</h5>
+			<p class="text-center text-danger">Après avoir réactiver votre compte, vous serez redirigé vers la page de connexion pour vous reconnecter afin d'accéder à l'integralité du site</p>
+
+			<div class="col-8 mx-auto p-3 mb-3 rounded">
+
+				<div class="d-flex justify-content-center ">
+					<a href="{{path('active')}}" class='btn btn-primary'>Réactiver votre compte</a>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'base_with_navbar.html.twig' %}
+
+{% block title %}MMG Calendar- Vos horaires
+{% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" type="text/css" href="{{asset('css/dashboard.css')}}">
+{% endblock %}
+{% block body %}
+	<main>
+		<div class="container">
+			<div class="col-7 mx-auto bg-div p-3 rounded">
+
+				<h1 class="text-decoration-underline text-center mb-5">Vos Horaires</h1>
+				<h2 class="text-decoration-underline">Ajouter une horaire</h2>
+				{{form_start(form)}}
+				<div class="d-flex justify-content-start">
+					{{form_row(form.horaire)}}
+				</div>
+				<div class="d-flex justify-content-start">
+					{{form_row(form.iteration)}}
+				</div>
+				{{form_row(form.buttonValidate)}}
+				{{form_end(form)}}
+				{% if not HorairePasses %}
+
+				{% else %}
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th scope="col" class="text-danger">Horaire expirée</th>
+								<th scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for HorairePasse in HorairePasses %}
+								<tr>
+									<td>
+										{{HorairePasse.horaire|format_datetime(locale='fr')}}
+									</td>
+									<td>
+										<!-- Button trigger modal -->
+										<a href="{{path('admin_horaire_removePlageHoraire', {'id': HorairePasse.id})}}" class="btn btn-danger me-1">Supprimer</a>
+									</td>
+								</tr>
+							{% endfor %}
+							{% endif %}
+							{% if not PlageHoraires %}
+
+								<h2>Vous n'avais pas de plage horaires disponibles</h2>
+							{% else %}
+								<table class="table table-striped mb-3">
+									<thead>
+										<tr>
+											<th scope="col">Plage horaires</th>
+											<th scope="col">Action</th>
+										</tr>
+									</thead>
+									<tbody>
+
+										{% for plageHoraire in PlageHoraires %}
+											<tr>
+												<td class="fw-bold">
+													{{plageHoraire.horaire|format_datetime(locale='fr')}}
+												</td>
+												<td>
+													<a href="{{path('admin_horaire_editPlageHoraire', {'id': plageHoraire.id})}}" class="btn btn-primary me-1">Modifier</a>
+													<a href="{{path('admin_horaire_removePlageHoraire', {'id': plageHoraire.id})}}" class="btn btn-danger me-1">Supprimer</a>
+												</td>
+											</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+							{% endif %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</main>
+{% endblock %}
+{% block javascripts %}
+	<script src="{{asset('js/Modal.js')}}"></script>
+{% endblock %}

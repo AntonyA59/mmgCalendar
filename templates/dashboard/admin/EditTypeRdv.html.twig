@@ -1,0 +1,25 @@
+{% extends 'base_with_navbar.html.twig' %}
+
+{% block title %}
+MMG Calendar Admin - Modifier un type de rendez-vous
+{% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" type="text/css" href="{{asset('css/dashboard.css')}}">
+{% endblock %}
+{% block body %}
+	<main>
+		<div class="container">
+			<div class="col-4 mx-auto ">
+				<div class='bg-div p-3 rounded'>
+					<h4 class="text-decoration-underline">Modification d'un type de rendez-vous</h4>
+					{{form_start(FormTypeRdv)}}
+					{{form_label(FormTypeRdv.type_rdv, 'Modifier votre prestation')}}
+					{{form_widget(FormTypeRdv.type_rdv)}}
+					<span class="erreur">{{ form_errors(FormTypeRdv.type_rdv) }}</span>
+					{{form_row(FormTypeRdv.buttonValidate,  {'label': 'Modifier'})}}
+					{{form_end(FormTypeRdv)}}
+				</div>
+			</div>
+		</div>
+	</main>
+{% endblock %}

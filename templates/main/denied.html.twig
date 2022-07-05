@@ -1,0 +1,34 @@
+{% extends 'base_with_navbar.html.twig' %}
+
+{% block title %}MMG Calendar- Accés refusé
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" type="text/css" href="{{asset('css/dashboard.css')}}">
+{% endblock %}
+
+{% block body %}
+	<main>
+		{% if is_granted("ROLE_DISABLE") %}
+			<div class="container">
+				<div class="col-8 mx-auto noPadding border p-3 bg-div rounded">
+					<p>L'accés a cet page vous a était refusé parce que vous n'avait pas l'autorisation d'y entrer car votre compte est desactivé</p>
+					<p>Pour réactiver votre compte veuillez cliquer sur ce bouton :</p>
+					<a class='btn btn-warning mb-3' href="{{path('active_menu')}}">Réactiver mon compte</a>
+					<p>Pour revenir à la page d'accueil veuillez cliquer sur ce bouton :</p>
+					<a class='btn btn-primary' href="{{path('home')}}">Revenir à la page d'accueil</a>
+				</div>
+			</div>
+		{% else %}
+			<div class="container">
+				<div class="col-8 mx-auto noPadding border p-3 bg-div rounded">
+					<p>L'accés a cet page vous a était refusé parce que vous n'avait pas l'autorisation d'y entrer</p>
+					<p>Pour revenir à la page d'accueil veuillez cliquer sur ce bouton :</p>
+					<a class='btn btn-blueMmg btn-primary' href="{{path('home')}}">Revenir à la page d'accueil</a>
+				</div>
+			</div>
+		{% endif %}
+
+
+	</main>
+{% endblock %}

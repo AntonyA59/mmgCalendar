@@ -1,0 +1,45 @@
+{% extends 'base_with_navbar.html.twig' %}
+
+{% block title %}MMG Calendar- Modification de vos informations personnelles
+{% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" type="text/css" href="{{asset('css/dashboard.css')}}">
+{% endblock %}
+{% block body %}
+	<main>
+		<div class="container">
+			<div class="col-4 mx-auto bg-div p-3 rounded">
+				{% for message in app.flashes('message') %}
+					<div class="alert alert-success animate__animated animate__fadeInDown " role="alert">
+						{{message}}
+					</div>
+				{% endfor %}
+				<h4 class="text-decoration-underline text-center">Modification des informations Personnelles</h4>
+				{{form_start(formEdit)}}
+				{{form_label(formEdit.societe)}}
+				{{form_widget(formEdit.societe)}}
+				<span class="erreur">{{ form_errors(formEdit.societe) }}</span>
+
+				{{form_label(formEdit.nom)}}
+				{{form_widget(formEdit.nom)}}
+				<span class="erreur">{{ form_errors(formEdit.nom) }}</span>
+
+				{{form_label(formEdit.prenom)}}
+				{{form_widget(formEdit.prenom)}}
+				<span class="erreur">{{ form_errors(formEdit.prenom) }}</span>
+
+				{{form_label(formEdit.email)}}
+				{{form_widget(formEdit.email)}}
+				<span class="erreur">{{ form_errors(formEdit.email) }}</span>
+
+				{{form_label(formEdit.telephone)}}
+				{{form_widget(formEdit.telephone)}}
+				<span class="erreur">{{ form_errors(formEdit.telephone) }}</span>
+				
+				{{form_label(formEdit.buttonValidate)}}
+				{{form_widget(formEdit.buttonValidate)}}
+				{{form_end(formEdit)}}
+			</div>
+		</div>
+	</main>
+{% endblock %}

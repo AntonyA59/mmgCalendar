@@ -1,0 +1,21 @@
+{% extends 'base_with_navbar.html.twig' %}
+
+{% block title %}MMG Calendar - Reinitialisation du mot de passe
+{% endblock %}
+{% block stylesheets %}
+
+	<link rel="stylesheet" type="text/css" href="{{asset('css/resetPassword.css')}}">
+{% endblock %}
+{% block body %}
+	<main>
+		<div class="container">
+			<div class="col-4 mx-auto noPadding border p-3 bg-div rounded">
+				Si votre compte existe, un e-mail sera envoyé avec un lien pour reinitialiser votre mot passe.
+				Le lien sera expiré dans
+				{{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
+			</p>
+			<p>Si vous ne recevez pas cet e-mail, regardez dans vos spam ou
+				<a href="{{ path('app_forgot_password_request') }}">Cliquez ici</a>.</p>
+		</main>
+	</div>
+</div>{% endblock %}

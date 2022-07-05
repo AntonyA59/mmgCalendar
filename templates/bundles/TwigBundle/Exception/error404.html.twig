@@ -1,0 +1,25 @@
+{% extends 'base_with_navbar.html.twig' %}
+
+{% block title %}MMG Calendar- Accés refusé
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" type="text/css" href="{{asset('css/dashboard.css')}}">
+{% endblock %}
+
+{% block body %}
+	<main>
+
+			<div class="container">
+				<div class="col-8 mx-auto noPadding border p-3 bg-div rounded">
+                <h1>Erreur 404</h1>
+					<p>La page que vous rechercher n'existe pas</p>
+					<p>Pour revenir à la page d'accueil veuillez cliquer sur ce bouton :</p>
+					<a class='btn btn-blueMmg btn-primary' href="{{path('home')}}">Revenir à la page d'accueil</a>
+				</div>
+			</div>
+
+
+
+	</main>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base_with_navbar.html.twig' %}
+
+{% block title %}MMG Calendar- Historique
+{% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{{asset('css/rdv.css')}}">
+{% endblock %}
+{% block body %}
+<div class="container-fluid table-responsive">
+	<div class="mx-auto col-8 mb-3 p-3 rounded">
+		<h1 class="text-decoration-underline mb-5 text-center">Votre historique</h1>
+		{% if not Rdvs %}
+		<p class="fw-bold text-center">Vous n'avez pas de rendez-vous dans votre historique pour le moment</p>
+		<p>
+			{% else %}
+		<p class="fw-bold text-center">Vous trouverez ici l'historique de tout vos rendez-vous effectuer</p>
+		<table class="table table-hover table-light rounded">
+			<thead>
+				<tr>
+					{% if is_granted("ROLE_ADMIN") %}
+					<th class='p-3'>Nom</th>
+					<th class='p-3'>Prenom</th>
+					<th class='p-3'>Société</th>
+					{% endif %}
+					<th class='p-3'>Date</th>
+					<th class='p-3'>Prestations</th>
+					<th class='p-3'>Type de rdv</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for rdv in Rdvs|sort((a,b) => b.horaire.horaire <=> a.horaire.horaire) %}
+					<tr>
+						{% if is_granted("ROLE_ADMIN") %}
+						<td class='p-3'>{{rdv.client.nom}}</td>
+						<td class='p-3'>{{rdv.client.prenom}}</td>
+						<td class='p-3'>{{rdv.client.societe}}</td>
+						{% endif %}
+						<td class='p-3'>{{rdv.horaire.horaire|format_datetime(locale='fr')}}</td>
+						<td class='p-3'>{{rdv.prestations.typePrestations}}</td>
+						<td class='p-3'>{{rdv.typeRdv.typerdv}}</td>
+					</tr>
+			</tbody>
+			</tr>
+			{% endfor %}
+			</tbody>
+			{% endif %}
+		</table>
+	</div>
+</div>{% endblock %}

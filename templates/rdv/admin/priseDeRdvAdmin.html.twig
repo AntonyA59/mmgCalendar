@@ -1,0 +1,67 @@
+{% extends 'base_with_navbar.html.twig' %}
+
+{% block title %}MMG Calendar Admin - Prise de rendez-vous
+{% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" type="text/css" href="{{asset('css/calendar.css')}}">
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<div class="col-8 mx-auto bg-div p-5  rounded">
+			<img src="{{asset('img/Logo-def-mail.png')}}" class="d-flex mx-auto justify-content-center" width="250px">
+			{% if not horaireDispo %}
+				<h4 class="text-center">Il n'y a pas de plage horaire disponible pour le moment</h2>
+			{% else %}
+				{{form_start(form)}}
+				
+				{{form_label(form.client)}}
+				<span class="erreur">{{ form_errors(form.client) }}</span>
+				{{form_widget(form.client)}}
+
+				{{form_label(form.horaire)}}
+				<span class="erreur">{{ form_errors(form.horaire) }}</span>
+				{{form_widget(form.horaire)}}
+
+				{{form_label(form.prestations)}}
+				<span class="erreur">{{ form_errors(form.prestations) }}</span>
+				{{form_widget(form.prestations)}}
+
+				{{form_label(form.TypeRdv)}}
+				<span class="erreur">{{ form_errors(form.TypeRdv) }}</span>
+				{{form_widget(form.TypeRdv)}}
+
+				{{form_label(form.description)}}
+				<span class="erreur">{{ form_errors(form.description) }}</span>
+				{{form_widget(form.description)}}
+
+				<!-- Modal -->
+				<div class="modal fade" id="rdv" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="PrestationLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="PrestationLabel">Confirmation avant Validation</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<h5>Êtes-vous sûre de vos choix ?</h5>
+								<p>"Cliquez sur Envoyer pour confirmer
+									<span class="text-danger">définitivement</span>
+									votre rendez-vous ou cliquez sur annuler pour revoir vos choix"</p>
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+								{{form_row(form.buttonValidate)}}
+							</div>
+						</div>
+					</div>
+				</div>
+				{{form_end(form)}}
+				<button type="button" class="btn mt-3 w-100 btn btn-lg btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#Rdv">Valider</button>
+
+			{% endif %}
+
+		</div>
+	</div>
+{% endblock %}

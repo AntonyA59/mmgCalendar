@@ -1,0 +1,26 @@
+{% extends 'base_with_navbar.html.twig' %}
+
+{% block title %}MMG Calendar Admin - Modifier une prestation
+{% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" type="text/css" href="{{asset('css/dashboard.css')}}">
+{% endblock %}
+{% block body %}
+	<main>
+		<div class="container">
+			<div class="col-4 mx-auto ">
+				<div class='bg-div p-3 rounded'>
+					<h4 class="text-decoration-underline">Modification d'une Prestation</h4>
+					{{form_start(FormPrestation)}}
+					{{form_label(FormPrestation.typePrestations, 'Modifier votre prestation')}}
+					{{form_widget(FormPrestation.typePrestations)}}
+					<span class="erreur">{{ form_errors(FormPrestation.typePrestations) }}</span>
+
+					{{form_row(FormPrestation.buttonValidate,  {'label': 'Modifier'})}}
+					{{form_end(FormPrestation)}}
+				</div>
+			</div>
+		</div>
+
+	</main>
+{% endblock %}

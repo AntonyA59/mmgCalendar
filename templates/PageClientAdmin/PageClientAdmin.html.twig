@@ -1,0 +1,108 @@
+{% extends 'base_with_navbar.html.twig' %}
+
+{% block title %}MMG Calendar- Vos clients
+{% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{{asset('css/rdv.css')}}">
+{% endblock %}
+{% block body %}
+<div class="container-fluid table-responsive">
+	<!-- Modal -->
+	<div class="modal fade" id="Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+		aria-labelledby="PrestationLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="PrestationLabel">Confirmation avant suppression</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<h5>Êtes-vous sûre de vouloir desactivé le compte du client suivant:</h5>
+					<p class='fw-bold'></p>
+					<p class="fw-bold mail"></p>
+					<p class='fw-bold societe'></p>
+					<p class="text-danger text-center fw-bold">Ce client n'aura plus accés a certains contenue du site
+						un fois le compte desactivé</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary " data-bs-dismiss="modal">Annuler</button>
+					<a href="#" class="btn btn-danger">Désactiver définitivement</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-10 mx-auto mb-3 p-3 rounded">
+		<h1 class="text-decoration-underline text-center mb-5">Vos clients</h1>
+		<table class="table table-striped table-responsive bg-div-table rounded">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Client</th>
+					<th>e-mail</th>
+					<th>sociéte</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for client in Clients %}
+				<tr>
+					<td>{{client.id}}</td>
+					<td>
+						{{client.prenom}}
+						{{client.nom}}
+					</td>
+					<td>{{client.email}}</td>
+					<td>{{client.societe}}</td>
+					<td>
+						<a href="{{path('admin_client_editClient', {'id': client.id})}}"
+							class="btn btn-primary me-1">Modifier</a>
+						<!-- Button trigger modal -->
+						<button type="button" id="client-trigger" class="btn btn-danger " data-bs-toggle="modal"
+							data-bs-target="#Modal" data-mail="{{client.email}}" data-id='{{client.id}}'
+							data-societe="{{client.societe}}"
+							data-titre='{{client.nom}} {{client.prenom}}'>Désactiver</button>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+			{% if not ClientsOff %}
+
+			{% else %}
+			<thead>
+				<tr>
+					<th>id</th>
+					<th>Client desactiver</th>
+					<th>e-mail</th>
+					<th>sociéte</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for clientOff in ClientsOff %}
+				<tr>
+					<td>{{clientOff.id}}</td>
+					<td>
+						{{clientOff.nom}}
+						{{clientOff.prenom}}
+					</td>
+					<td>{{clientOff.email}}</td>
+					<td>{{clientOff.societe}}</td>
+					<td>
+						<a href="{{path('admin_client_activeClient', {'id': clientOff.id})}}"
+							class="btn btn-success me-1">Réactiver</a>
+					</td>
+				</tr>
+				{% endfor %}
+				{% endif %}
+		</table>
+	</div>
+</div>
+<div class="d-flex justify-content-center">
+	<a href="{{path('admin_client_addClient')}}" class="btn text-center btn-primary btn-lg mt-3 w-25 mb-3">Ajouter un
+		client</a>
+</div>
+</main>
+{% endblock %}
+{% block javascripts %}
+<script src="{{asset('js/Modal.js')}}"></script>
+{% endblock %}

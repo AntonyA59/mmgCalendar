@@ -1,0 +1,161 @@
+{% extends 'base_with_navbar.html.twig' %}
+
+{% block title %}MMG Calendar Admin - Page de profil
+{% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" type="text/css" href="{{asset('css/dashboard.css')}}">
+{% endblock %}
+{% block body %}
+	<main>
+		<div class="container">
+			<div class="col-7 mx-auto bg-div p-3 mb-3 rounded">
+				<h4 class="text-decoration-underline text-center">Vos informations personnelles</h4>
+				<div class="mb-3">
+					<label for="Nom" class="form-label">Nom</label>
+					<input type="text" class="form-control" value="{{app.user.nom}}" disabled>
+				</div>
+				<div class="mb-3">
+					<label for="Prenom" class="form-label">Prénom</label>
+					<input type="texte" class="form-control" value="{{app.user.prenom}}" disabled>
+				</div>
+				<div class="mb-3">
+					<label for="Societe" class="form-label">Entreprise/Société</label>
+					<input type="texte" class="form-control" value="{{app.user.societe}}" disabled>
+				</div>
+				<div class="mb-3">
+					<label for="Mail" class="form-label">Adresse E-mail</label>
+					<input type="texte" class="form-control" value="{{app.user.email}}" disabled>
+				</div>
+				<div class="mb-3">
+					<label for="Mail" class="form-label">Téléphone</label>
+					<input type="texte" class="form-control" value="{{app.user.telephone}}" disabled>
+				</div>
+				<a href="{{path('dashboard_admin_edit')}}" class="btn btn-primary mt-3 w-100 btn-lg mb-3">Modifier vos informations</a>
+				<a href="{{path('dashboard_admin_pass')}}" class="btn btn-primary mt-3 w-100 btn-lg mb-3">Modifier le mot de passe</a>
+			</div>
+		</div>
+		<div class="container">
+			<div class="col-7 mx-auto bg-div mb-3 p-3 rounded">
+				<h4 class="text-decoration-underline text-center">Vos Prestations</h4>
+				<table class="table table-striped">
+					{% if not Prestations %}
+
+						{% else %}
+
+							<thead>
+								<tr>
+									<th>Prestations</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+
+								{% for prestation in Prestations %}
+									<tr>
+										<td>
+											{{prestation.typePrestations}}
+										</td>
+										<td>
+											<a href="{{path('dashboard_admin_editPrestation', {'id': prestation.id})}}" class="btn btn-primary me-1">Modifier</a>
+											<a href="{{path('dashboard_admin_desactivePrestation', {'id': prestation.id})}}" class="btn btn-danger">Désactiver</a>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+					{% endif %}
+					{% if not PrestationsOff %}
+
+						{% else %}
+
+							<thead>
+								<tr>
+									<th>Prestations desactiver</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for PrestationOff in PrestationsOff %}
+									<tr>
+										<td>
+											{{PrestationOff.typePrestations}}
+										</td>
+										<td>
+											<a href="{{path('dashboard_admin_activePrestation',{'id': PrestationOff.id})}}" class="btn btn-success">Réactiver</a>
+										</td>
+									</tr>
+								{% endfor %}
+							{% endif %}
+						</tbody>
+					</table>
+					{{form_start(FormPrestation)}}
+					{{form_row(FormPrestation.typePrestations)}}
+					{{form_row(FormPrestation.buttonValidate)}}
+					{{form_end(FormPrestation)}}
+				</div>
+			</div>
+
+
+			<div class="container">
+				<div class="col-7 mx-auto bg-div mb-3 p-3 rounded">
+					<h4 class="text-decoration-underline text-center">Vos Types de Rendez-vous</h4>
+					<table class="table table-striped">
+						{% if not TypesRdv %}
+
+							{% else %}
+
+								<thead>
+									<tr>
+										<th scope="col">Type de Rdv</th>
+										<th scope="col">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for typeRdv in TypesRdv %}
+										<tr>
+											<td>
+												{{typeRdv.typerdv}}
+											</td>
+											<td>
+												<a href="{{path('dashboard_admin_editTypeRdv', {'id': typeRdv.id})}}" class="btn btn-primary me-1">Modifier</a>
+												<a href="{{path('dashboard_admin_desactiveTypeRdv', {'id': typeRdv.id})}}" class="btn btn-danger">Désactiver</a>
+
+											</td>
+										</tr>
+
+									{% endfor %}
+								</tbody>
+						{% endif %}
+						{% if not TypesRdvOff %}
+							{% else %}
+								<thead>
+									<tr>
+										<th>Type de rendez desactiver</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for TypeRdvOff in TypesRdvOff %}
+										<tr>
+											<td>
+												{{TypeRdvOff.typerdv}}
+											</td>
+											<td>
+												<a href="{{path('dashboard_admin_activeTypeRdv',{'id': TypeRdvOff.id})}}" class="btn btn-success">Réactiver</a>
+											</td>
+										</tr>
+									{% endfor %}
+								{% endif %}
+							</tbody>
+						</table>
+						{{form_start(FormTypeRdv)}}
+						{{form_row(FormTypeRdv.type_rdv)}}
+						{{form_row(FormTypeRdv.buttonValidate)}}
+						{{form_end(FormTypeRdv)}}
+					</div>
+				</div>
+
+			</main>
+		{% endblock %}
+		{% block javascripts %}
+			<script src="{{asset('js/Modal.js')}}"></script>
+		{% endblock %}

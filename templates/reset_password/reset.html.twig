@@ -1,0 +1,25 @@
+{% extends 'base_with_navbar.html.twig' %}
+
+{% block title %}MMG Calendar - Reinitialisation du mot de passe
+{% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" type="text/css" href="{{asset('css/resetPassword.css')}}">
+
+{% endblock %}
+{% block javascripts %}	<script defer src="{{asset('js/mdp.js')}}"></script>{% endblock %}
+{% block body %}
+	<div class="container bg-main">
+		<div class="mx-auto ">
+			<h1>Reinitialiser votre mot de passe</h1>
+
+			{{ form_start(resetForm) }}
+			{{ form_row(resetForm.plainPassword.first) }}
+			<span id="message" class="fw-bold"></span>
+			{{ form_row(resetForm.plainPassword.second) }}
+			<span id="message2"class="fw-bold"></span>
+			<br>
+			<button class="btn btn-primary">Valider votre mot de passe</button>
+			{{ form_end(resetForm) }}
+		</div>
+	</div>
+{% endblock %}

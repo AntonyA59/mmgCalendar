@@ -1,0 +1,65 @@
+{% extends 'base_with_navbar.html.twig' %}
+
+{% block title %}MMG Calendar- Page de profil
+{% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" type="text/css" href="{{asset('css/dashboard.css')}}">
+{% endblock %}
+{% block body %}
+	<main>
+		<div class="container">
+			<div class="col-6 mx-auto bg-div p-3 rounded">
+				{% for message in app.flashes('message') %}
+					<div class="alert alert-success animate__animated animate__fadeInDown " role="alert">
+						{{message}}
+					</div>
+				{% endfor %}
+				<!-- Modal -->
+				<div class="modal fade" id="Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="PrestationLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="PrestationLabel">Confirmation avant suppression</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<h5>Êtes-vous sûre de vouloir désactiver votre compte?</h5>
+								<p class='text-center'>Vous pourrez toujours réactiver votre compte en vous reconnectant sur ce compte et suivre les indications pour la réactivation</p>
+								<span class="text-center text-danger">Attention !<br>
+									Vous serrez automatiquement déconnecter si vous désactiver votre compte.</span>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary " data-bs-dismiss="modal">Annuler</button>
+								<a href="{{path('dashboard_client_disable')}}" class="btn btn-danger">Desactiver mon compte</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<h1 class="text-decoration-underline text-center">Vos informations Personnelles</h1>
+				<div class="mb-3">
+					<label for="Nom" class="form-label">Nom</label>
+					<input type="text" class="form-control" value="{{app.user.nom}}" disabled>
+				</div>
+				<div class="mb-3">
+					<label for="Prenom" class="form-label">Prénom</label>
+					<input type="texte" class="form-control" value="{{app.user.prenom}}" disabled>
+				</div>
+				<div class="mb-3">
+					<label for="Societe" class="form-label">Entreprise/Société</label>
+					<input type="texte" class="form-control" value="{{app.user.societe}}" disabled>
+				</div>
+				<div class="mb-3">
+					<label for="Mail" class="form-label">Adresse E-mail</label>
+					<input type="texte" class="form-control" value="{{app.user.email}}" disabled>
+				</div>
+				<div class="mb-3">
+					<label for="Mail" class="form-label">Téléphone</label>
+					<input type="texte" class="form-control" value="{{app.user.telephone}}" disabled>
+				</div>
+				<a href="{{path('dashboard_client_edit')}}" class="btn btn-blueMmg mt-3 w-100 btn-lg mb-3">Modifier vos informations</a>
+				<a href="{{path('dashboard_client_pass')}}" class="btn btn-blueMmg mt-3 w-100 btn-lg mb-3">Modifier le mot de passe</a>
+				<button type="button" class="btn btn-lg btn-danger mt-3 w-100 " data-bs-toggle="modal" data-bs-target="#Modal">Désactiver mon compte</button>
+			</div>
+		</div>
+	</main>
+{% endblock %}

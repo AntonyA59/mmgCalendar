@@ -1,0 +1,73 @@
+{% extends 'base_with_navbar.html.twig' %}
+
+{% block title %}
+	{% if is_granted("ROLE_ADMIN") %}
+		MMG Calendar- Ajout d'un client
+	{% else %}
+		MMG Calendar- Inscription
+	{% endif %}
+{% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" type="text/css" href="{{asset('css/inscription.css')}}">
+	<script defer src="{{asset('js/mdp.js')}}"></script>
+{% endblock %}
+{% block body %}
+	<main>
+		<div class="container">
+			<div class="col-4 mx-auto bg-div p-3 rounded">
+				<div class="d-flex justify-content-center">
+					<img class="d-flex justify-content-center mb-4" src="{{asset('img/Logo-def-2.webp')}}" alt="Logo mmg" width="55%">
+				</div>
+				{% if is_granted("ROLE_ADMIN") %}
+					<h1 class=" text-center text-decoration-underline mb-5">Ajout d'un client</h1>
+				{% else %}
+					<h1 class="text-decoration-underline mb-5 text-center">Inscription</h1>
+				{% endif %}
+				{{form_start(formulaire)}}
+
+				{{form_label(formulaire.nom)}}
+				{{form_widget(formulaire.nom)}}
+				<span class="erreur">{{ form_errors(formulaire.nom)}}</span>
+
+				{{form_label(formulaire.prenom)}}
+				{{form_widget(formulaire.prenom)}}
+				<span class="erreur">{{ form_errors(formulaire.prenom)}}</span>
+
+				{{form_label(formulaire.societe)}}
+				{{form_widget(formulaire.societe)}}
+				<span class="erreur">{{ form_errors(formulaire.societe) }}</span>
+
+				{{form_label(formulaire.email.first)}}
+				{{form_widget(formulaire.email.first)}}
+				<span class="erreur">{{ form_errors(formulaire.email.first) }}</span>
+				
+				{{form_row(formulaire.email.second)}}
+				{{form_label(formulaire.telephone)}}
+				{{form_widget(formulaire.telephone)}}
+				<span class="erreur">{{ form_errors(formulaire.telephone) }}</span>
+
+				{{form_label(formulaire.password.first)}}
+				{{form_widget(formulaire.password.first)}}
+				
+
+				<span class="erreur">{{ form_errors(formulaire.password.first) }}</span>
+				{{form_row(formulaire.password.second)}}
+				
+				{{form_label(formulaire.RGPD)}}
+				<span class="erreur">{{ form_errors(formulaire.RGPD) }}</span>
+				{{form_widget(formulaire.RGPD)}}
+				
+				<div>
+				{{form_label(formulaire.captcha)}}
+				</div>
+				<span class="erreur">{{ form_errors(formulaire.captcha) }}</span>
+				{{form_widget(formulaire.captcha)}}
+				{{form_row(formulaire.buttonValidate)}}
+				{{form_end(formulaire)}}
+
+			</div>
+		</div>
+	</main>
+	
+
+{% endblock %}

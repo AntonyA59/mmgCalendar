@@ -1,0 +1,379 @@
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}{% endblock %}
+		</title>
+		
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+		<link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}">
+
+		<script defer src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+
+		<script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+
+		<script defer src="https://kit.fontawesome.com/43e6df5c7a.js" crossorigin="anonymous"></script>
+
+		{% block stylesheets %}
+			{#{{ encore_entry_link_tags('app') }}#}
+		{% endblock %}
+	</head>
+	<body>
+		<!-- Navbar Sticky-->
+		<div class="container-fluid sticky-top mb-3 bg-light shadow">
+			<header class="d-flex flex-wrap justify-content-center m-2 ">
+				<a href="{{path('home')}}" class="d-flex mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+					<img src="{{asset('img/Logo-def-mail.png')}}" width="150px">
+				</a>
+				<div class="text-end d-flex align-items-center">
+					{% if is_granted("ROLE_ADMIN") %}
+						<a class="text-header me-2 p-2 display_none_resp" href="{{path('prise_rdv_admin')}}">Prendre un rendez-vous</a>
+					{% elseif is_granted("ROLE_USER") %}
+						<a class="text-header me-2 p-2 display_none_resp" href="{{path('prise_rdv_user')}}">Prendre un rendez-vous</a>
+					{% else %}
+						<a class="text-header me-2 p-2 display_none_resp" href="{{path('prise_rdv')}}">Prendre un rendez-vous</a>
+					{% endif %}
+					<a class="text-header me-2 p-2 display_none_resp" href="{{path('home')}}">Accueil</a>
+					<a class="btn btn-primary me-2 p-2 display_none_resp" target="_blank" href="http://mmg-accesspro.fr/">Visitez mon site web</a>
+					<div class="dropdown display_none_resp">
+
+						<button class="btn btn-greenMmg dropdown-toggle m-2 p-2" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+							{% if is_granted("ROLE_ADMIN") %}
+								{{app.user.prenom}}
+								{{app.user.nom}}
+								(Admin)
+							{% elseif is_granted("ROLE_USER") %}
+								{{app.user.prenom}}
+								{{app.user.nom}}
+							{% elseif is_granted("ROLE_DISABLE") %}
+								{{app.user.prenom}}
+								{{app.user.nom}}
+								(désactiver)
+							{% else %}
+								Connexion/Inscription
+							{% endif %}
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+							{% if is_granted("ROLE_ADMIN") %}
+								<li>
+									<a class="dropdown-item" href="{{path('dashboard_admin')}}">
+										<span class="fas fa-user">
+											Page de profil</span>
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{path('admin_client')}}">
+										<span class="fas fa-user-tie">
+											Vos clients</span>
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{path('admin_horaire')}}">
+										<span class="fas fa-clock">
+											Vos horaires</span>
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{path('admin_rdv')}}">
+										<span class="fas fa-calendar-alt">
+											Vos rendez-vous</span>
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{path('admin_historique')}}">
+										<span class="fas fa-history">
+											Historique rendez-vous</span>
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{path('app_logout')}}">
+										<span class="fas fa-sign-out-alt">
+											Deconnexion</span>
+									</a>
+								</li>
+							{% elseif is_granted("ROLE_USER") %}
+								<li>
+									<a class="dropdown-item" href="{{path('dashboard_client')}}">
+
+										<span class="fas fa-user">
+											Page de profil</span>
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{path('client_rdv')}}">
+										<span class="fas fa-calendar-alt">
+											Vos rendez-vous</span>
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{path('client_Historique')}}">
+										<span class="fas fa-history">
+											Historique rendez-vous</span>
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{path('app_logout')}}">
+										<span class="fas fa-sign-out-alt">
+											Deconnexion</span>
+									</a>
+								</li>
+							{% elseif is_granted("ROLE_DISABLE") %}
+								<li>
+									<a class="dropdown-item" href="{{path('active_menu')}}">
+										<span class="fas fa-user">
+											Réactiver votre compte</span>
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{path('app_logout')}}">
+										<span class="fas fa-sign-out-alt">
+											Deconnexion</span>
+									</a>
+								</li>
+							{% else %}
+								<li>
+									<a class="dropdown-item" href="{{path('app_login')}}">
+										<span class="fas fa-user">
+											Connexion</span>
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{path('inscription')}}">
+										<span class="fas fa-plus">
+											Inscription</span>
+									</a>
+								</li>
+							{% endif %}
+						</ul>
+					</div>
+					<div class="dropdown resp">
+						<button class="btn btn-greenMmg fas fa-bars m-2 p-2 " type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+							{% if is_granted("ROLE_ADMIN") %}
+								<li>
+									<a class="dropdown-item" href="{{path('dashboard_admin')}}">
+										<span class="fas fa-user">
+											Page de profil</span>
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{path('admin_client')}}">
+										<span class="fas fa-user-tie">
+											Vos clients</span>
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{path('admin_horaire')}}">
+										<span class="fas fa-clock">
+											Vos horaires</span>
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{path('admin_rdv')}}">
+										<span class="fas fa-calendar-alt">
+											Vos rendez-vous</span>
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{path('admin_historique')}}">
+										<span class="fas fa-history">
+											Historique rendez-vous</span>
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{path('app_logout')}}">
+										<span class="fas fa-sign-out-alt">
+											Deconnexion</span>
+									</a>
+								</li>
+							{% elseif is_granted("ROLE_USER") %}
+								<li>
+									<a class="dropdown-item" href="{{path('dashboard_client')}}">
+										<span class="fas fa-user">
+											Page de profil</span>
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{path('client_rdv')}}">
+										<span class="fas fa-calendar-alt">
+											Vos rendez-vous</span>
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{path('client_Historique')}}">
+										<span class="fas fa-history">
+											Historique rendez-vous</span>
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{path('app_logout')}}">
+										<span class="fas fa-sign-out-alt">
+											Deconnexion</span>
+									</a>
+								</li>
+							{% elseif is_granted("ROLE_DISABLE") %}
+								<li>
+									<a class="dropdown-item" href="{{path('active_menu')}}">
+										<span class="fas fa-user">
+											Réactiver votre compte</span>
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{path('app_logout')}}">
+										<span class="fas fa-sign-out-alt">
+											Deconnexion</span>
+									</a>
+								</li>
+							{% else %}
+								<li>
+									<a class="dropdown-item" href="{{path('app_login')}}">
+										<span class="fas fa-user">
+											Connexion</span>
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{path('inscription')}}">
+										<span class="fas fa-plus">
+											Inscription</span>
+									</a>
+								</li>
+							{% endif %}
+							<li>
+								<a class="dropdown-item" href="{{path('home')}}">
+									<span class="fas fa-home">
+										Acceuil</span>
+								</a>
+							</li>
+							<li>
+								{% if is_granted("ROLE_ADMIN") %}
+									<a class="dropdown-item" href="{{path('prise_rdv_admin')}}">
+										<span class="fas fa-calendar-alt">
+											Prendre un rendez-vous</span>
+									</a>
+								{% elseif is_granted("ROLE_USER") %}
+									<a class="dropdown-item" href="{{path('prise_rdv_user')}}">
+										<span class="fas fa-calendar-alt">
+											Prendre un rendez-vous</span>
+									</a>
+								{% else %}
+									<a class="dropdown-item" href="{{path('prise_rdv')}}">
+										<span class="fas fa-calendar-alt">
+											Prendre un rendez-vous</span>
+									</a>
+								{% endif %}
+							</li>
+						</li>
+						<li>
+							<a class="dropdown-item" href="http://mmg-accesspro.fr/">
+								<span class="fas fa-building">
+									Mon site Web</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</header>
+		</div>
+		<!--Fin navbar sticky-->
+		{% for message in app.flashes('message') %}
+			<div class="alert alert-success animate__animated animate__fadeInDown" role="alert">
+				{{message}}
+			</div>
+		{% endfor %}
+
+		{% block body %}{% endblock %}
+		<footer class="bd-footer py-5 mt-5 bg-light">
+			<div class="container py-5">
+				<div class="row">
+					<div class="col-lg-3 mb-3">
+						<img src="{{asset('img/Logo-def-2.webp')}}" width="250px">
+					</div>
+					<div class="col-4 col-lg-3 offset-lg-1 m-3">
+						<h5 class="bold">COORDONNÉES</h5>
+						<ul class="list-unstyled">
+							<li class="mb-2">
+								<p>MMG ACCESSPRO Développement, modélisation et automatisation de vos données
+								</p>
+								<p>LILLE (59)</p>
+								<p>
+
+									📱 : 06 25 49 27 40
+								</p>
+								<p>
+									📧 E-mail : marie@mmg-accesspro.fr</p>
+							</li>
+						</ul>
+					</div>
+
+					<div class="col-6 col-lg-3 m-3">
+						<h5 class="bold">EXPERTISE</h5>
+						<ul class="list-unstyled">
+							<li class="mb-2">
+								<p>Optimisation de votre Pack Office Microsoft Access, Excel, Outlook, Word, PowerPoint, PowerBI, ClickView, 
+																																																																																																																																																																																																																																																																																																																																																																		SharePoint et SQL Server
+								</p>
+							</li>
+						</ul>
+					</div>
+					<div class="col-6 col-lg-2 mb-3">
+						<h5 class="bold">Menu</h5>
+						<ul class="list-unstyled">
+							<li>
+								<a class="text-decoration-none text-black" href="{{path('home')}}">Acceuil</a>
+							</li>
+							{% if is_granted("ROLE_ADMIN") %}
+								<li>
+									<a class="text-decoration-none text-black" href="{{path('dashboard_admin')}}">Votre page de profil</a>
+								</li>
+								<li>
+									<a class="text-decoration-none text-black" href="{{path('prise_rdv_admin')}}">Prendre un rendez-vous</a>
+								</li>
+								<li>
+									<a class="text-decoration-none text-black" href="{{path('admin_client')}}">Vos clients</a>
+								</li>
+								<li>
+									<a class="text-decoration-none text-black" href="{{path('admin_horaire')}}">Vos horaires</a>
+								</li>
+								<li>
+									<a class="text-decoration-none text-black" href="{{path('admin_rdv')}}">Vos rendez-vous</a>
+								</li>
+								<li>
+									<a class="text-decoration-none text-black" href="{{path('admin_historique')}}">Historique rendez-vous</a>
+								</li>
+							{% elseif is_granted("ROLE_USER") %}
+								<li>
+									<a class="text-decoration-none text-black" href="{{path('dashboard_client')}}">Votre page de profil</a>
+								</li>
+								<li>
+									<a class="text-decoration-none text-black" href="{{path('prise_rdv_user')}}">Prendre un rendez-vous</a>
+								</li>
+								<li>
+									<a class="text-decoration-none text-black" href="{{path('client_rdv')}}">Vos rendez-vous</a>
+								</li>
+								<li>
+									<a class="text-decoration-none text-black" href="{{path('client_Historique')}}">Historique rendez-vous</a>
+								</li>
+							{% elseif is_granted('ROLE_DISABLE') %}
+								<li>
+									<a class="text-decoration-none text-black" href="{{path('active_menu')}}">
+										Réactiver votre compte
+									</a>
+								</li>
+							{% else %}
+								<li>
+									<a class="text-decoration-none text-black" href="{{path('app_login')}}">Connexion</a>
+								</li>
+								<li>
+									<a class="text-decoration-none text-black" href="{{path('inscription')}}">Inscription</a>
+								</li>
+							{% endif %}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</footer>
+		{% block javascripts %}{% endblock %}
+	</body>
+</html>

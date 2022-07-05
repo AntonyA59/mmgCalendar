@@ -1,0 +1,30 @@
+{% extends 'base_with_navbar.html.twig' %}
+
+{% block title %}MMG Calendar
+{% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" type="text/css" href="{{asset('css/calendar.css')}}">
+{% endblock %}
+{% block body %}
+	<div class="container">
+		<div class="col-8 mx-auto bg-div p-5  rounded">
+			<h1 class="text-center">MMG Calendar</h1>
+			<h5 class="text-center">Pour pouvoir prendre un rendez-vous, vous devez être identifier:</h5>
+
+			<div class="col-8 mx-auto p-3 mb-3 rounded bg-white">
+				<p class="text-center">Nouveau sur MMG-Calendar</p>
+				<div class="d-flex justify-content-center ">
+					<a class="btn btn-warning w-100 mx-auto text-center" href="{{path('inscription')}}">S'inscrire</a>
+				</div>
+			</div>
+
+			<div class="col-8 mx-auto p-3 mb-3 rounded bg-white">
+				<p class="text-center">Vous possédez un compte déja existant sur MMG-Calendar</p>
+				<div class="d-flex justify-content-center ">
+					<a class="btn btn-primary w-100 mx-auto text-center" href="{{path('app_login')}}">Connexion</a>
+				</div>
+			</div>
+
+		</div>
+	</div>
+{% endblock %}

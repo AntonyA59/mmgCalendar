@@ -1,0 +1,28 @@
+{% extends 'base_with_navbar.html.twig' %}
+
+{% block title %}MMG Calendar Admin - Modifier une plage horaire
+{% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" type="text/css" href="{{asset('css/dashboard.css')}}">
+{% endblock %}
+{% block body %}
+	<main>
+		<div class="container">
+			<div class="col-4 mx-auto ">
+				<div class='bg-div p-3 rounded'>
+					<h1 class="text-decoration-underline text-center mb-3">Modification d'une horaire</h1>
+					<div class="d-flex justify-content-center ">
+					{{form_start(FormPlageHoraire)}}
+					{{form_label(FormPlageHoraire.horaire, '')}}
+					{{form_widget(FormPlageHoraire.horaire)}}
+					<span class="erreur">{{ form_errors(FormPlageHoraire.horaire) }}</span>
+					</div>
+
+					{{form_row(FormPlageHoraire.buttonValidate,  {'label': 'Modifier'})}}
+					{{form_end(FormPlageHoraire)}}
+				</div>
+			</div>
+		</div>
+
+	</main>
+{% endblock %}

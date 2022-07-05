@@ -1,0 +1,29 @@
+{% extends 'base_with_navbar.html.twig' %}
+
+{% block title %}MMG Calendar - Détails Rendez-vous n°{{rdv.id}}
+{% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" type="text/css" href="{{asset('css/dashboard.css')}}">
+{% endblock %}
+{% block body %}
+	<main>
+		<div class="container">
+			<div class="col-12 mx-auto bg-div p-3 rounded">
+				{% if is_granted('ROLE_ADMIN') %}
+					<h4 class="text-decoration-underline text-center">Message de {{rdv.client.prenom}}
+						{{rdv.client.nom}}</h4>
+				{% elseif is_granted("ROLE_USER")  %}
+					<h4 class="text-decoration-underline text-center">Votre message envoyé</h4>
+				{% endif %}
+				<p>{{rdv.description|raw}}</p>
+				<div class="d-flex justify-content-center">
+					{% if is_granted('ROLE_ADMIN') %}
+						<a href="{{path('admin_rdv')}}" class="btn text-center btn-secondary w-25 btn-lg mb-3">Retour</a>
+						{% elseif is_granted("ROLE_USER")  %}
+						<a href="{{path('client_rdv')}}" class="btn text-center btn-secondary w-25 btn-lg mb-3">Retour</a>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</main>
+{% endblock %}

@@ -1,0 +1,114 @@
+/*Modif durée des animation de anime.css*/
+:root {
+    --animate-delay: 1.5s;
+}
+
+.desk {
+    display: block;
+}
+
+.resp {
+    display: none;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.height {
+    height: 70%;
+}
+
+.noPadding {
+    padding: 0;
+}
+.bg-div{
+    background-color: rgba(214, 214, 214, 0.5);
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+}
+
+.bg-div-table{
+    background-color: rgba(214, 214, 214, 0.7);
+    font-family: 'Raleway', sans-serif;
+
+}
+.bg-header {
+    background-color: white;
+}
+
+.text-black{
+    color: black;
+}
+
+.text-black:hover {
+    color: #e1a74f;
+}
+
+.text-header {
+    font-family: 'Raleway', sans-serif;
+    text-decoration: none;
+    color: black;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.text-header:hover {
+    color: #e1a74f;
+}
+
+.text-header-active:hover {
+    color: #e1a74f;
+}
+
+.btn-greenMmg {
+    background-color: #82b61e;
+    color: white;
+}
+
+.btn-yellowMmg {
+    background-color: #fff000
+}
+
+.btn-blueMmg {
+    background-color: #008ecb;
+    color: white;
+}
+
+.btn-redMmg {
+    background-color: #e1000a;
+}
+
+.greenMmg {
+    color: #82b61e;
+}
+
+.yellowMmg {
+    color: #fff000;
+}
+
+.redMmg {
+    color: #e1000a
+}
+
+.blueMmg {
+    color: #008ecb
+}
+
+.bold {
+    font-weight: bold;
+}
+
+@media screen and (max-width: 750px) {
+    .textSizeResponsive {
+        font-size: 15px;
+    }
+    .resp {
+        display: block;
+    }
+    .display_none_resp {
+        display: none;
+    }
+}

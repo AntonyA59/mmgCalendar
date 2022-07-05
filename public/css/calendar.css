@@ -1,0 +1,13 @@
+body{
+    background-image: url("../img/COUV-PHOTO-2.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+    -o-background-size: cover;
+}
+.erreur{
+    color: red;
+}
+
+.erreur ul li{
+    list-style-type: none;
+}

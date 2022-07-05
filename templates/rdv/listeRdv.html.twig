@@ -1,0 +1,130 @@
+{% extends 'base_with_navbar.html.twig' %}
+
+{% block title %}
+MMG Calendar - Vos rendez-vous
+{% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{{asset('css/rdv.css')}}">
+{% endblock %}
+{% block body %}
+<h1 class="text-decoration-underline mb-5 text-center">Vos Rendez-vous</h4>
+	<div class="container-fluid table-responsive">
+		{% if is_granted('ROLE_ADMIN') %}
+		<div class="col-11 mx-auto mb-3 p-3 rounded">
+			{% elseif is_granted("ROLE_USER") %}
+			<div class="col-8 mx-auto mb-3 p-3 rounded">
+				{% endif %}
+				{% if not Rdvs %}
+				<p class='text-center fw-bold'>Vous n'avez pas de rendez-vous de planifier pour le moment</p>
+
+				{% else %}
+				<!-- Modal -->
+				<div class="modal fade" id="rdv1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+					aria-labelledby="rdvLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="rdvLabel">Confirmation avant annulation</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							{% if is_granted('ROLE_ADMIN')%}
+							{% set hidden = "" %}
+							{% elseif is_granted('ROLE_USER') %}
+							{% set hidden = "visually-hidden" %}
+							{% endif %}
+
+							<div class="modal-body">
+								<h5>Êtes-vous sûre de vouloir annulé le rendez-vous suivant:</h5>
+								<p class="id"></p>
+								<p class='horaire'></p>
+								<p class="nom {{hidden}}"></p>
+								<p class="societe {{hidden}}"></p>
+								<span class="mx-auto jusitfy-align-center text-danger">Attention !<br>
+									Cette action est irréversible et effacera définitivement les données de ce
+									rendez-vous.</span>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+								<a href="" class="btn btn-danger">Annuler définitivement</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>ID</th>
+							{% if is_granted('ROLE_ADMIN') %}
+							<th>Nom</th>
+							<th>Prenom</th>
+							<th>Société</th>
+							{% endif %}
+							<th>Date</th>
+							<th>Prestations</th>
+							<th>Type de rdv</th>
+							<th>Action</th>
+							<th></th>
+							<th></th>
+							{% if is_granted('ROLE_ADMIN') %}
+							<th></th>
+							{% endif %}
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for rdv in Rdvs|sort((a,b) => a.horaire.horaire <=> b.horaire.horaire) %}
+							<tr>
+								<td>{{rdv.id}}</td>
+								{% if is_granted('ROLE_ADMIN') %}
+								<td>{{rdv.client.nom}}</td>
+								<td>{{rdv.client.prenom}}</td>
+								<td>{{rdv.client.societe}}</td>
+								{% endif %}
+								<td>{{rdv.horaire.horaire|format_datetime(locale='fr')}}</td>
+								<td>{{rdv.prestations.typePrestations}}</td>
+								<td>{{rdv.typeRdv.typerdv}}</td>
+								<td>
+
+									<a href="{{path('detailRdv', {'id': rdv.id})}}" class="btn btn-greenMmg me-1">Voir
+										le
+										message</a>
+
+								</td>
+								<td>
+									<a href="{{path('editHoraireRdv', {'id': rdv.id})}}"
+										class="btn btn-blueMmg me-1">Modifier l'horaire</a>
+
+								</td>
+								{% if is_granted('ROLE_ADMIN') %}
+								<td>
+									<a href="{{path('admin_rdv_valide', {'id': rdv.id})}}"
+										class="btn btn-success me-1">Validé</a>
+								</td>
+								{% endif %}
+								{% if is_granted('ROLE_ADMIN') %}
+								<td>
+									<button type="button" id="rdv-trigger-admin" class="btn btn-danger "
+										data-bs-toggle="modal" data-bs-target="#rdv1" data-id='{{rdv.id}}'
+										data-nom='{{rdv.client.nom}} {{rdv.client.Prenom}}'
+										data-horaire='{{rdv.horaire.horaire|format_datetime(locale=' fr')}}'
+										data-societe='{{rdv.client.societe}}'>Annuler</button>
+								</td>
+								{% elseif is_granted('ROLE_USER') %}
+								<td>
+									<button type="button" id="rdv-trigger-admin" class="btn btn-danger "
+										data-bs-toggle="modal" data-bs-target="#rdv1" data-id='{{rdv.id}}'
+										data-nom='{{rdv.client.nom}} {{rdv.client.Prenom}}'
+										data-horaire='{{rdv.horaire.horaire|format_datetime(locale=' fr')}}'
+										data-societe='{{rdv.client.societe}}'>Annuler</button>
+								</td>
+								{% endif %}
+							</tr>
+							{% endfor %}
+					</tbody>
+					{% endif %}
+				</table>
+			</div>
+		</div>{% endblock %}
+		{% block javascripts %}
+		<script src="{{asset("js/Modal.js")}}"></script>{% endblock %}

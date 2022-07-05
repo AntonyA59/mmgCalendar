@@ -1,0 +1,75 @@
+{% extends 'base_with_navbar.html.twig' %}
+
+{% block title %}MMG Calendar- Accueil
+{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{% block body %}
+	{% if is_granted("ROLE_DISABLE") %}
+		<div class="alert alert-warning animate__animated animate__fadeInDown " role="alert">
+			<p>Votre comptes est désactiver, vous pouvez la réactiver en
+				<a href="{{path('active_menu')}}">cliquant ici</a>
+			</p>
+		</div>
+	{% endif %}
+	<main>
+		<div id="carouselExampleFade" class="carousel slide carousel-fade container-fluid noPadding" w data-bs-ride="carousel">
+			<div class="carousel-indicators">
+				<button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+				<button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="1" aria-label="Slide 2"></button>
+			</div>
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					<img src="{{asset('img/COUV-PHOTO-4.jpg')}}" class="d-block w-100" alt="Image de couverture de carousel">
+					<div class="position-absolute top-50 start-50 translate-middle text-white text-center ">
+						<h1 class="bold animate__animated animate__fadeIn animate__delay-1s textSizeResponsive yellowMmg">Besoin d'aide ?</h1>
+						<h3 class="bold animate__animated animate__fadeIn animate__delay-2s textSizeResponsive">Vous bloquez sur une formule de calcul ?</h3>
+						<h3 class="bold animate__animated animate__fadeIn animate__delay-3s textSizeResponsive greenMmg">Sur une fonction Excel ?
+						</h3>
+						<h3 class="bold animate__animated animate__fadeIn animate__delay-4s textSizeResponsive redMmg">Ou sur une requête Access ?</h3>
+						<h3 class="bold animate__animated animate__fadeIn animate__delay-5s textSizeResponsive blueMmg">Et si vous faisiez appel à un professionnel afin d’éviter de perdre du temps sur les forums ?<h3>
+								{% if is_granted("ROLE_ADMIN") %}
+									<a class="btn btn-greenMmg  me-2 p-2 animate__animated animate__fadeInLeft animate__delay-5s" href="{{path('prise_rdv_admin')}}">Prendre un rendez-vous</a>
+								{% elseif is_granted("ROLE_USER") %}
+									<a class="btn btn-greenMmg  me-2 p-2 animate__animated animate__fadeInLeft animate__delay-5s" href="{{path('prise_rdv_user')}}">Prendre un rendez-vous</a>
+								{% else %}
+									<a class="btn btn-greenMmg  me-2 p-2 animate__animated animate__fadeInLeft animate__delay-5s" href="{{path('prise_rdv')}}">Prendre un rendez-vous</a>
+								{% endif %}
+							</div>
+
+						</div>
+						<div class="carousel-item ">
+							<img src="{{asset('img/COUV-PHOTO-3.jpg')}}" class="d-block w-100" alt="Image de couverture de carousel">
+							<div class="position-absolute top-50 start-50 translate-middle textColor text-center ">
+								<h3 class="bold animate__animated animate__fadeIn animate__delay-1s textSizeResponsive blueMmg">Nous vous offrons une solution d’aide Excel ou Access rapide, simple et sécurisée, uniquement sur PC :
+								</h3>
+								<h3 class="bold animate__animated animate__fadeIn animate__delay-2s textSizeResponsive redMmg">Prise de contrôle à distance (Teamviewer)
+								</h3>
+								<h3 class="bold animate__animated animate__fadeIn animate__delay-3s textSizeResponsive greenMmg">Sur place.
+								</h3>
+								{% if is_granted("ROLE_ADMIN") %}
+									<a class="btn btn-greenMmg  me-2 p-2 animate__animated animate__fadeInLeft animate__delay-5s" href="{{path('prise_rdv_admin')}}">Prendre un rendez-vous</a>
+								{% elseif is_granted("ROLE_USER") %}
+									<a class="btn btn-greenMmg  me-2 p-2 animate__animated animate__fadeInLeft animate__delay-5s" href="{{path('prise_rdv_user')}}">Prendre un rendez-vous</a>
+								{% else %}
+									<a class="btn btn-greenMmg  me-2 p-2 animate__animated animate__fadeInLeft animate__delay-5s" href="{{path('prise_rdv')}}">Prendre un rendez-vous</a>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Previous</span>
+					</button>
+					<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Next</span>
+					</button>
+				</div>
+
+
+			</main>
+
+			{% block javascripts %}{% endblock %}
+		{% endblock %}

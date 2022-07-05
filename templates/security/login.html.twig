@@ -1,0 +1,40 @@
+{% extends 'base_with_navbar.html.twig' %}
+
+{% block title %}MMG Calendar - Connexion{% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{{asset('css/inscription.css')}}">
+{% endblock %}
+{% block body %}
+<main>
+    <div class="container">
+        <div class="col-4 mx-auto bg-div p-3 rounded">
+            <a href="{{path('home')}}" class="d-flex justify-content-center"><img class="mb-4 mx-auto" src="{{asset('img/Logo-def-2.webp')}}" alt="Logo mmg" width="55%"></a>
+            <form method="post">
+				{% if error %}
+					<div class="alert alert-danger animate__animated animate__fadeInDown " role="alert">
+						L'adresse E-mail ou le mot de passe est invalide.
+					</div>
+				{% endif %}
+                <h1 class="h3 mb-3 bold text-center fw-normal">Connexion</h1>
+                <div class="mb-3">
+                    <label for="inputEmail">Adresse E-mail</label>
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control"
+                        autocomplete="email" required autofocus>
+                </div>
+
+                <div class="mb-3">
+                    <label for="inputPassword">Mot de passe</label>
+                    <input type="password" name="password" id="inputPassword" class="form-control"
+                        autocomplete="current-password" required>
+                </div>
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <div class="d-flex justify-content-center mb-3">
+                <button class="btn btn-lg w-100 btn-primary" type="submit">
+                    Connexion
+                </button>
+                </div>
+            </form>
+            <a href="{{ path('app_forgot_password_request') }}" class="d-flex justify-content-center">Mot de passe oublié ?</a>
+        </div>
+    </div>
+    {% endblock %}

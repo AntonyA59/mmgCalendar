@@ -1,0 +1,63 @@
+{% extends 'base_with_navbar.html.twig' %}
+
+{% block title %}MMG Calendar- Prise des rendez-vous
+{% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" type="text/css" href="{{asset('css/calendar.css')}}">
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<div class="col-10 mx-auto bg-div p-5  rounded">
+			<img src="{{asset('img/Logo-def-mail.png')}}" class="d-flex mx-auto justify-content-center" width="250px">
+			{% if not horaireDispo %}
+				<h4 class="text-center">Il n'y a pas de plage horaire disponible pour le moment</h2>
+			{% else %}
+				{{form_start(FormRdv)}}
+				{{form_label(FormRdv.horaire)}}
+				<span class="erreur">{{ form_errors(FormRdv.horaire) }}</span>
+				{{form_widget(FormRdv.horaire)}}
+
+				{{form_label(FormRdv.prestations)}}
+				<span class="erreur">{{ form_errors(FormRdv.prestations) }}</span>
+				{{form_widget(FormRdv.prestations)}}
+
+				{{form_label(FormRdv.TypeRdv)}}
+				<span class="erreur">{{ form_errors(FormRdv.TypeRdv) }}</span>
+				{{form_widget(FormRdv.TypeRdv)}}
+
+				{{form_label(FormRdv.description)}}
+				<span class="erreur">{{ form_errors(FormRdv.description) }}</span>
+				{{form_widget(FormRdv.description)}}
+
+
+				<!-- Modal -->
+				<div class="modal fade" id="rdv" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="PrestationLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="PrestationLabel">Confirmation avant Validation</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<h5>Êtes-vous sûre de vos choix ?</h5>
+								<p>"Cliquez sur Envoyer pour confirmer
+									<span class="text-danger">définitivement</span>
+									votre rendez-vous ou cliquez sur annuler pour revoir vos choix"</p>
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+								{{form_row(FormRdv.buttonValidate)}}
+							</div>
+						</div>
+					</div>
+				</div>
+				{{form_end(FormRdv)}}
+				<button type="button" class="btn mt-3 w-100 btn btn-lg btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#Rdv">Valider</button>
+
+			{% endif %}
+
+		</div>
+	</div>
+{% endblock %}

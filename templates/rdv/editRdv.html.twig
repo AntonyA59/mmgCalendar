@@ -1,0 +1,30 @@
+{% extends 'base_with_navbar.html.twig' %}
+
+{% block title %}MMG Calendar- Modifier l'horaire de votre rendez-vous
+{% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" type="text/css" href="{{asset('css/dashboard.css')}}">
+{% endblock %}
+{% block body %}
+	<main>
+		<div class="container">
+			<div class="col-8 mx-auto bg-div p-3 rounded">
+				{% for message in app.flashes('message') %}
+					<div class="alert alert-success animate__animated animate__fadeInDown " role="alert">
+						{{message}}
+					</div>
+				{% endfor %}
+				<h1 class="text-decoration-underline mb-3 text-center">Modifier l'horaire de rendez-vous</h1>
+				{% if not horaireDisponible %}
+					<p class="text-center">Pas d'horaire de rendez-vous disponible pour le moment</p>
+				{% else %}
+					<div class="d-flex justify-content-center">
+						<p>
+							{{form(form)}}
+						</p>
+					</p>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+</main>{% endblock %}
