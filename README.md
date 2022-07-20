@@ -1,6 +1,8 @@
 # mmgCalendar
 Projet de site internet de pris rendez-vous demander par mon employeur pendant mon stage de 10 semaines quand j'était en formation à l'AFPA. 
+
 Ce site avait pour but de faciliter la prise en charge des clients de mon employeur. 
+
 Fait avec le framework Symfony et Bootstrap.
 
    - Le client peut créer son compte et proposer un rendez-vous avec une plage horaire définie par l'admin.
