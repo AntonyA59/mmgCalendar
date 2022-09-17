@@ -3,22 +3,28 @@ Projet de site internet de prise rendez-vous demander par mon employeur pendant 
 
 Ce site avait pour but de faciliter la prise en charge des clients de mon employeur. 
 
+Lien du site : http://www.calendrier-mmg.fr/
+
+	 
 ## Technologie
 
-
- ### Framework
- - Symfony
- - Bootstrap
+ #### Framework
+ - Symfony 5.3 (https://symfony.com/)
+ - Bootstrap 5.0.1 (https://getbootstrap.com/)
+ 
+ #### Librairie
+ - Animate.css 4.1.1 (https://animate.style/)
+ - Font Awesome (https://fontawesome.com/)
  
 
-
-### Features
+## Features
    - L'admin peut ajouter, modifier et supprimer des plages horaires.
    - L'admin peut ajouter, modfier et supprimer ces types de rendez-vous.
    - Le client peut créer son compte et proposer un rendez-vous avec une plage horaire définie par l'admin.
    - Le client et l'admin peuvent accéder à son historique de rendez-vous passés.
    - Le client et l'admin reçoivent un email de confirmation quand le rendez-vous a etait pris, modifier ou annuler.
    - Le client et l'admin a la possibilité de modifier leur profil et leur mot de passe.
-   - En cas d'oubli de mot de passe, l'admin et le client peuvent recevoir un lien pour modifier leur mot de passe
+   - En cas d'oubli de mot de passe, l'admin et le client peuvent recevoir un lien pour modifier leur mot de passe.
+
 
 
